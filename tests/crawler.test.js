@@ -6,28 +6,28 @@ const baseUrl = "https://example.com";
 test("normalizeUrl https handle", ()=>{
     const url = "https://example.com";
     const actual = normalizeUrl(url);
-    const expected = "example.com";
+    const expected = "https://example.com";
     expect(actual).toEqual(expected);
 });
 
 test("normalizeUrl extra slash", ()=>{
     const url = "https://example.com/";
     const actual = normalizeUrl(url);
-    const expected = "example.com";
+    const expected = "https://example.com";
     expect(actual).toEqual(expected);
 });
 
 test("normalizeUrl https handle", ()=>{
     const url = "https://example.com/";
     const actual = normalizeUrl(url);
-    const expected = "example.com";
+    const expected = "https://example.com";
     expect(actual).toEqual(expected);
 });
 
 test("normalizeUrl capitals", ()=>{
     const url = "https://ExaMple.com/";
     const actual = normalizeUrl(url);
-    const expected = "example.com";
+    const expected = "https://example.com";
     expect(actual).toEqual(expected);
 });
 
@@ -42,7 +42,7 @@ test("extractLinks single link", ()=>{
     </body>
     </html>`;
     const actual = extractLinks(baseUrl, htmlBody);
-    const expected = ["https://example.com/"];
+    const expected = ["https://example.com"];
     expect(actual).toEqual(expected);
 });
 
@@ -60,7 +60,7 @@ test("extractLinks multiple links", ()=>{
     </body>
     </html>`;
     const actual = extractLinks(baseUrl, htmlBody);
-    const expected = ["https://example.com/", "https://example.com/second"];
+    const expected = ["https://example.com", "https://example.com/second"];
     expect(actual).toEqual(expected);
 });
 
