@@ -90,9 +90,14 @@ const injectFingerprint = async (page, fingerprint) => {
   await injector.attachFingerprintToPlaywright(context, fingerprint);
 };
 
+const emptyFingerprintCache = ()=>{
+  fingerprintCache.clear();
+}
+
 module.exports = {
   createPageWithFingerprint,
   generateFingerprint,
   getFingerprintData,
   injectFingerprint,
+  emptyFingerprintCache,
 };
