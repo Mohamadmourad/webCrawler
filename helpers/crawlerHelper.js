@@ -56,8 +56,46 @@ const extractLinks = (baseUrl, htmlBody) => {
   return urlResults;
 };
 
+const fetchPlaywrightPage = async (page, url) => {
+  try {
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Cache-Control': 'max-age=0',
+      'Sec-Fetch-Site': 'none',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-User': '?1',
+      'Sec-Fetch-Dest': 'document',
+    });
+
+    const randomDelay = Math.random() * 2000 + 500;
+    await page.waitForTimeout(randomDelay);
+
+    const response = await page.goto(url, {
+      waitUntil: 'networkidle',
+      timeout: 30000,
+    });
+
+    if (!response || response.status() >= 400) {
+      return { success: false, status: response?.status() || 500 };
+    }
+
+    const contentType = response.headers()['content-type'] || '';
+    if (!contentType.includes('text/html')) {
+      return { success: false, status: 415 };
+    }
+
+    const html = await page.content();
+    return { success: true, html, status: response.status() };
+  } catch (error) {
+    console.error(`Fetch error for ${url}:`, error.message);
+    return { success: false, status: 500, error: error.message };
+  }
+};
+
 module.exports = {
     normalizeUrl,
     extractLinks,
-    fetchWithTlsClient
+    fetchWithTlsClient,
+    fetchPlaywrightPage
 }

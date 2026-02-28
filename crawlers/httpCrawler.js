@@ -1,7 +1,8 @@
 const { normalizeUrl, extractLinks, fetchWithTlsClient } = require("../helpers/crawlerHelper");
 
-const httpCrawler = async (baseUrl, pageUrl, pages)=>{
-  console.log(pageUrl);
+const httpCrawler = async (baseUrl, pageUrl, pages, depth = 0, maxDepth = 5)=>{
+  if(depth > maxDepth) return pages;
+  console.log(`[${depth}] Crawling: ${pageUrl}`);
   const mainPageUrl = new URL(baseUrl);
   const incomingPageUrl = new URL(pageUrl);
   if(mainPageUrl.host !== incomingPageUrl.host) return pages;
@@ -26,7 +27,7 @@ const httpCrawler = async (baseUrl, pageUrl, pages)=>{
 
   const pageLinks = await extractLinks(baseUrl, pageHtml);
   for(const link of pageLinks){
-    await httpCrawler(baseUrl, link, pages);
+    await httpCrawler(baseUrl, link, pages, depth + 1, maxDepth);
   }
 
   return pages;
