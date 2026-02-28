@@ -1,4 +1,4 @@
-const { crawlPage } = require("./crawler");
+const { httpCrawler } = require("./crawlers/httpCrawler");
 
 async function main(){
     if(process.argv < 3){
@@ -11,7 +11,7 @@ async function main(){
     }
     const baseUrl = process.argv[2];
     console.log("staring crawling...");
-    const pages = await crawlPage(baseUrl, baseUrl, {});
+    const pages = await httpCrawler(baseUrl, baseUrl, {});
     console.log(pages);
 }
 

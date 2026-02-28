@@ -1,5 +1,5 @@
 const {test, expect} = require("@jest/globals");
-const { normalizeUrl, extractLinks } = require("../crawler");
+const { normalizeUrl, extractLinks } = require("../helpers/crawlerHelper");
 
 const baseUrl = "https://example.com";
 
