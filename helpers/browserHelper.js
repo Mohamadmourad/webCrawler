@@ -1,4 +1,4 @@
-const { BROWSER_TYPES } = require("../modules/browserModules");
+const { chromium, firefox } = require("playwright");
 
 let browserInstance = null;
 
@@ -7,6 +7,7 @@ const getOrCreateBrowser = async (browserType = null) => {
     return browserInstance;
   }
 
+  const BROWSER_TYPES = [chromium, firefox];
   const selectedType = browserType || BROWSER_TYPES[Math.floor(Math.random() * BROWSER_TYPES.length)];
 
   browserInstance = await selectedType.launch({

@@ -1,6 +1,7 @@
 const { getOrCreateBrowser } = require('../helpers/browserHelper');
 const { normalizeUrl, extractLinks, fetchPlaywrightPage } = require('../helpers/crawlerHelper');
 const { createPageWithFingerprint } = require('../helpers/fingerprintHelper');
+const { scrapePage } = require('../scraper');
 
 const playwrightCrawler = async (baseUrl, pageUrl, pages = {}, browser = null, depth = 0, maxDepth) => {
   if (depth > maxDepth) return pages;
@@ -36,6 +37,7 @@ const playwrightCrawler = async (baseUrl, pageUrl, pages = {}, browser = null, d
     }
 
     pages[url] = 1;
+    await scrapePage(url, result.html);
 
     const pageLinks = extractLinks(baseUrl, result.html);
 

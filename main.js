@@ -1,6 +1,5 @@
-const { crawler } = require("./crawler");
-const { httpCrawler } = require("./crawlers/httpCrawler");
-const { playwrightCrawler } = require("./crawlers/playwrightCrawler");
+const { crawler } = require("./crawlers/crawler");
+const config = require("./config.json");
 
 async function main(){
     if(process.argv < 3){
@@ -13,9 +12,8 @@ async function main(){
     }
     const baseUrl = process.argv[2];
     console.log("staring crawling...");
-    const maxDepth = 2;
-    const pages = await crawler(baseUrl, maxDepth);
-    // const pages = await playwrightCrawler(baseUrl, baseUrl, {}, null, 0, maxDepth);
+    
+    const pages = await crawler(baseUrl, config.maxDepth);
     console.log(pages);
 }
 

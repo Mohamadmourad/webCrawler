@@ -1,8 +1,8 @@
-const { httpCrawler } = require("./crawlers/httpCrawler");
-const { playwrightCrawler } = require("./crawlers/playwrightCrawler");
-const { isJsRendered, closeBrowser } = require("./helpers/browserHelper");
-const { fetchWithTlsClient } = require("./helpers/crawlerHelper");
-const { emptyFingerprintCache } = require("./helpers/fingerprintHelper");
+const { httpCrawler } = require("./httpCrawler");
+const { playwrightCrawler } = require("./playwrightCrawler");
+const { isJsRendered, closeBrowser } = require("../helpers/browserHelper");
+const { fetchWithTlsClient } = require("../helpers/crawlerHelper");
+const { emptyFingerprintCache } = require("../helpers/fingerprintHelper");
 
 const crawler = async (baseUrl, maxDepth) => {
   let pages = {};

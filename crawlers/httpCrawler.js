@@ -1,4 +1,5 @@
 const { normalizeUrl, extractLinks, fetchWithTlsClient } = require("../helpers/crawlerHelper");
+const { scrapePage } = require("../scraper");
 
 const httpCrawler = async (baseUrl, pageUrl, pages, depth = 0, maxDepth = 5)=>{
   if(depth > maxDepth) return pages;
@@ -23,6 +24,7 @@ const httpCrawler = async (baseUrl, pageUrl, pages, depth = 0, maxDepth = 5)=>{
   }
   else{
    pages[url] = 1;
+   await scrapePage(url, pageHtml);
   }
 
   const pageLinks = await extractLinks(baseUrl, pageHtml);
